@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 #
-# Build the patched NVIDIA 620.70.06 open kernel modules through DKMS and
-# install them for the running kernel.
+# Build the patched NVIDIA 620.73.04 open kernel modules through DKMS and
+# install them for the running kernel (override with KVER=<uname -r>).
 #
 # Usage:
 #   sudo ./dkms/install.sh          # build + install + rebuild initramfs
@@ -13,10 +13,10 @@
 set -euo pipefail
 
 PKG="nvidia-va"
-VER="620.70.06"
+VER="620.73.04"
 SRC="/usr/src/${PKG}-${VER}"
 REPO_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
-KVER="$(uname -r)"
+KVER="${KVER:-$(uname -r)}"
 
 if [ "$(id -u)" -ne 0 ]; then
     exec sudo -- "$0" "$@"
